@@ -19,19 +19,25 @@ function Calculator({ workouts, allowSound }) {
     [number, sets, speed, durationBreak]
   );
 
-  const playSound = function () {
-    if (!allowSound) return;
-    const sound = new Audio(clickSound);
-    sound.play();
-  };
+  useEffect(
+    function () {
+      const playSound = function () {
+          if (!allowSound) return;
+          const sound = new Audio(clickSound);
+          sound.play();
+        }        
+        playSound()
+    },
+    [duration, allowSound]
+  );
 
   function handleInc() {
     //use Math.floor to round off the value to the lower closest value in cases of 30secs. Example if duration is 82:30, then we want the updated duration to be 83:00 instead of 83:30
-    setDuration(duration => Math.floor(duration) + 1)
+    setDuration((duration) => Math.floor(duration) + 1);
   }
 
   function handleDec() {
-    setDuration(duration => duration > 1 ? Math.ceil(duration) - 1 : 0)
+    setDuration((duration) => (duration > 1 ? Math.ceil(duration) - 1 : 0));
   }
 
   return (
